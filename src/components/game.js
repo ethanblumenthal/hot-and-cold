@@ -24,6 +24,9 @@ export default class Game extends React.Component {
   }
 
   render() {
+    const { feedback, guesses } = this.state;
+    const guessCount = guesses.length;
+
     return (
       <div className="App">
         <header className="App-header">

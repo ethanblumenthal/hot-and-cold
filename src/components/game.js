@@ -1,5 +1,10 @@
 import React from 'react';
 
+import Header from './header';
+import GuessSection from './guess-section';
+import StatusSection from './status-section';
+import InfoSection from './info-section';
+
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -7,6 +12,7 @@ export default class Game extends React.Component {
     this.state = {
       guesses: [],
       feedback: 'Make your guess!',
+      auralStatus: '',
       correctAnswer: Math.round(Math.random() * 100) + 1
     };
   }
@@ -15,6 +21,7 @@ export default class Game extends React.Component {
     this.setState({
       guesses: [],
       feedback: 'Make your guess!',
+      auralStatus: '',
       correctAnswer: Math.round(Math.random() * 100) + 1
     });
   }
@@ -23,17 +30,32 @@ export default class Game extends React.Component {
 
   }
 
+  generateAuralUpdate() {
+
+  }
+
   render() {
     const { feedback, guesses } = this.state;
     const guessCount = guesses.length;
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-        </p>
+      <div>
+        <Header
+          onRestartGame={() => this.restartGame() }
+          onGenerateAuralUpdate={() => this.generateAuralUpdate()}
+        />
+        <main role="main">
+          <GuessSection
+            feedback={feedback}
+            guessCount={guessCount}
+            onMakeGuess={guess => this.makeGuess(guess)}
+          />
+          <StatusSection
+            guesses={guesses} 
+            auralStatus={auralStatus}
+          />
+          <InfoSection />
+        </main>
       </div>
     );
   }
